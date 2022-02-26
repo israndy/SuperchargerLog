@@ -11,6 +11,12 @@ import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.use('TkAgg') # Change the default to work on my Mac
 
+def readdate(date):
+    idate = date.split()[0].split('-')
+    idate.append(date.split()[1].split(':')[0])
+    idate.append(date.split()[1].split(':')[1])
+    return(idate)
+
 timestamp = []
 apoints = []
 bpoints = []
@@ -22,11 +28,11 @@ file = open(LogFile, "rt")
 line = file.readline() # Pop the header line off the file
 
 line = file.readline()
-i = line.split(',')[0].split()
+i = readdate(line.split(',')[0])
 start=datetime.datetime(int(i[0]),int(i[1]),int(i[2]),int(i[3]),int(i[4]))
 
 while line:
-    i = line.split(',')[0].split()
+    i = readdate(line.split(',')[0])
     end = datetime.datetime(int(i[0]),int(i[1]),int(i[2]),int(i[3]),int(i[4]))
     timestamp.append(end)
     splitline = line.split(',')
